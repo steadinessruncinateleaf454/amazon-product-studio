@@ -82,7 +82,7 @@ To successfully deploy and run, you must populate the following environment vari
 | :--- | :--- | :--- |
 | **Database** | `DATABASE_URL` | PostgreSQL connection string ([Supabase](https://supabase.com) or [Neon](https://neon.tech)) |
 | **NextAuth / Google** | `NEXTAUTH_SECRET` | Secure random string generated via `openssl rand -base64 32` |
-| | `NEXTAUTH_URL` | Your production domain (e.g. `https://my-app.vercel.app`) |
+| | `NEXTAUTH_URL` | Your production domain (e.g. `https://amazon-product-studio.vercel.app`) |
 | | `WEBHOOK_URL` | Public URL for MuAPI async callbacks (same as `NEXTAUTH_URL` in production) |
 | | `GOOGLE_CLIENT_ID` | Get from [Google Cloud Console](https://console.cloud.google.com/apis/credentials) |
 | | `GOOGLE_CLIENT_SECRET` | Get from [Google Cloud Console](https://console.cloud.google.com/apis/credentials) |
@@ -99,9 +99,9 @@ To successfully deploy and run, you must populate the following environment vari
 4. **Deploy**: Hit "Deploy". Vercel will automatically run the build steps (`npm run build`).
 5. **Database Push**: Run `npx prisma db push` to synchronize database models before launching.
 6. **Integrations Setup**:
-   - Establish a **Google Cloud OAuth app**, enabling the callback URL: `https://your-app.vercel.app/api/auth/callback/google`
-   - Setup a **Stripe Webhook**, pointing to `https://your-app.vercel.app/api/stripe/webhook` and selecting the `checkout.session.completed` event.
-   - Register a **MuAPI Webhook** pointing to `https://your-app.vercel.app/api/webhook/muapi` to receive async generation results.
+   - Establish a **Google Cloud OAuth app**, enabling the callback URL: `https://amazon-product-studio.vercel.app/api/auth/callback/google`
+   - Setup a **Stripe Webhook**, pointing to `https://amazon-product-studio.vercel.app/api/stripe/webhook` and selecting the `checkout.session.completed` event.
+   - Register a **MuAPI Webhook** pointing to `https://amazon-product-studio.vercel.app/api/webhooks/ai` to receive async generation results.
 
 ---
 

@@ -1,6 +1,6 @@
 # 📦 Amazon Product Studio — Premium AI Product Photo & Ad Creative Generator SaaS
 
-> **A beautifully designed, premium dark-themed AI Product Background Generator.** Built with Next.js (App Router), this application is a production-ready SaaS boilerplate that replaces expensive product photography shoots with high-converting AI generated scenes. Upload your Amazon product photo, choose a preset scene template or write a custom description, specify your aspect ratio, and download professional studio-grade product mockups in seconds.
+> **A beautifully designed, high-contrast AI Product Photography Studio.** Built with Next.js (App Router), this application is a self-contained SaaS boilerplate for generating photorealistic product ad scenes in seconds. Upload up to 14 product reference photos, select a premium template preset or input a custom prompt, choose your aspect ratio, and place your product into beautiful, studio-grade commercial scenes.
 
 ## 🌐 Project Details
 
@@ -10,14 +10,14 @@
 
 ---
 
-Amazon Product Studio is a fully optimized, credits-based SaaS application built for modern e-commerce sellers. It seamlessly handles User Authentication, Credits & Billing, Image Persistence, and asynchronous AI generation using a sleek Next.js (App Router) structure. It is designed to allow sellers and agencies to quickly test multiple background settings for their products without needing manual editing or photoshoots.
+Amazon Product Studio is a production-ready, highly-optimized AI web application. Out of the box, it seamlessly manages User Authentication, Credits & Billing, Image Persistence, and asynchronous AI scene rendering using a sleek Next.js (App Router) architecture. It empowers e-commerce store owners, marketing designers, and brand managers to create stunning studio-quality product photos in seconds — all without expensive photoshoots.
 
 **Why use Amazon Product Studio?**
 
 - **Production-Ready SaaS** — Complete with Google OAuth and Stripe Checkout workflows built-in.
-- **Sleek Custom Dropdowns** — Upward-opening aspect ratio and preset selectors prevent clipping and scroll-chaining on all viewport screens.
-- **Self-Healing AI Polling & Webhooks** — Uses MuAPI predictions API with fallback status checking during fetches (`GET /api/creations`), ensuring local development works without external tunnels.
-- **Personal Creation History** — Keep track of previous creatives in the inline dashboard gallery or the dedicated `/gallery` route.
+- **AI Scene Studio** — Upload up to 14 product reference photos, select aspect ratios, choose presets or enter custom prompts, and see results instantly.
+- **Webhook-Backed AI Delivery** — MuAPI async webhook delivers results directly into the database (`/api/webhooks/ai`), keeping API routes non-blocking and preventing request timeouts.
+- **Creations History Gallery** — All generated ad scenes are saved to PostgreSQL. Users can review, compare, download, and track their designs on the main workspace page.
 - **Responsive Screen-Fitting** — Designed with a fluid layout that fits perfectly on all screens (mobile, tablet, desktop) using stacked adaptive grids on mobile and viewport-locked scrolling on desktop.
 
 ![Amazon Product Studio Screenshot](https://cdn.muapi.ai/data/2/327865410974/Screenshot_2026-05-26_132418.png)
@@ -26,41 +26,31 @@ Amazon Product Studio is a fully optimized, credits-based SaaS application built
 
 ## ✨ Core Features
 
-### 🎨 Product Scene Studio (Main Page `/`)
-- Upload up to 14 product reference photos via file picker or drag-and-drop. Real-time preview grid shown instantly.
-- Custom dropdown for **Preset Scene Templates**:
-  - **Minimalist Marble**: Elegant white block with natural daylight
-  - **Luxury Spotlight**: Moody highlight with dark reflection
-  - **Rustic Wood**: Cozy home table with window light
-  - **Granite Countertop**: Modern granite kitchen surface
-  - **Sunny Beach**: Warm golden sand & blurred ocean
-  - **Forest Moss**: Organic stone in green woods
-  - **Modern Office**: Corporate office workspace desk
-- Custom descriptive Prompt Input with a **Reset** button to restore the smart default prompt instructions.
-- Custom dropdown for **Aspect Ratio**: `1:1`, `4:3`, `3:4`, `16:9`, `9:16`.
-- Cost: **18 credits** per generation.
-- Real-time status displays (`processing` / `completed` / `failed`) with an inline fallback polling loop.
-- Floating original inputs context bubble overlay on the output image for reference.
-- User history gallery at the bottom with real-time status auto-refreshing.
+### 🎨 AI Product Photography Studio (Main Page `/`)
+- Multi-image reference uploads supporting up to 14 photos (ideal for transparent product PNGs or standard reference images). Real-time preview thumbnails with delete action.
+- Custom dropdown for **Aspect Ratio**: 1:1 (Square), 4:3 (Landscape), 3:4 (Portrait), 16:9 (Widescreen), 9:16 (Story).
+- 7 pre-designed scene templates (presets) including: Minimalist Marble, Luxury Spotlight, Rustic Wood, Granite Countertop, Sunny Beach, Forest Moss, and Modern Office.
+- Reset to default template button to quickly clear or restore baseline prompt directions.
+- Cost: **18 credits** per AI generation.
 
-### 🖼️ Creative Gallery (`/gallery`)
-- Dedicated `/gallery` route displaying all user's generated listing images.
-- Cards show a thumbnail, aspect ratio, prompt summary, creation date, and status (`processing` / `completed` / `failed`).
-- Full-screen viewer modal showing a larger preview, aspect ratio, prompt description, creation date, and high-speed HD download.
-- Auto-polls for pending creations in the database.
+### 🖼️ Creations History Gallery
+- Bottom horizontal thumbnail grid of all generated product listing scenes.
+- Cards show a thumbnail and indicators for status (`processing` / `completed` / `failed`).
+- Active creation details: prompt overlay, selected aspect ratio, download high-res button, and floating thumbnail references.
+- Auto-polls every 4 seconds for processing gallery items, plus 3 seconds active generation polling.
 
 ### 💳 Stripe Credit Billing (`/pricing`)
-- Four credit packages based on a **$1 = 200 credits** conversion rate:
-  - **Basic Pack** ($5 / 1,000 credits)
-  - **Standard Pack** ($10 / 2,000 credits)
-  - **Professional Pack** ($20 / 4,000 credits — Most Popular)
-  - **Business Pack** ($50 / 10,000 credits)
+- Four credit packs based on a **$1 = 200 credits** conversion rate:
+  - **Basic Pack** ($5 / 1,000 credits — up to 55 generations)
+  - **Standard Pack** ($10 / 2,000 credits — up to 111 generations)
+  - **Pro Pack** ($20 / 4,000 credits — up to 222 generations — Most Popular)
+  - **Business Pack** ($50 / 10,000 credits — up to 555 generations)
 - No recurring subscriptions — pay once, use at your own pace.
 - Credit balance is automatically topped up via Stripe webhook on checkout completion.
 
 ### 🔐 Google Auth + Credit Persistence
 - NextAuth Google provider with Prisma adapter — user sessions, credit balances, and galleries are all persisted per account.
-- Credits displayed live in the Navbar with a pulsing coin icon.
+- Credits displayed live in the Navbar with a coin icon.
 
 ---
 
@@ -81,15 +71,17 @@ To successfully deploy and run, you must populate the following environment vari
 | Service | Variable | Description & Source |
 | :--- | :--- | :--- |
 | **Database** | `DATABASE_URL` | PostgreSQL connection string ([Supabase](https://supabase.com) or [Neon](https://neon.tech)) |
+| | `DIRECT_URL` | Non-pooling direct PostgreSQL URL (for migrations) |
 | **NextAuth / Google** | `NEXTAUTH_SECRET` | Secure random string generated via `openssl rand -base64 32` |
-| | `NEXTAUTH_URL` | Your production domain (e.g. `https://amazon-product-studio.vercel.app`) |
+| | `NEXTAUTH_URL` | Your production domain (e.g. `https://my-app.vercel.app`) |
 | | `WEBHOOK_URL` | Public URL for MuAPI async callbacks (same as `NEXTAUTH_URL` in production) |
 | | `GOOGLE_CLIENT_ID` | Get from [Google Cloud Console](https://console.cloud.google.com/apis/credentials) |
 | | `GOOGLE_CLIENT_SECRET` | Get from [Google Cloud Console](https://console.cloud.google.com/apis/credentials) |
 | **Stripe Billing** | `STRIPE_SECRET_KEY` | Get from [Stripe Dashboard](https://dashboard.stripe.com/apikeys) |
 | | `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Get from [Stripe Dashboard](https://dashboard.stripe.com/apikeys) |
 | | `STRIPE_WEBHOOK_SECRET` | Webhook secret for resolving credit purchases |
-| **AI Generation** | `MUAPIAPP_API_KEY` | Create an account and get key from [muapi.ai/access-keys](https://muapi.ai/access-keys) |
+| **AI Generation** | `MU_API_KEY` | Create an account and get key from [muapi.ai/access-keys](https://muapi.ai/access-keys) |
+| **Theme** | `NEXT_PUBLIC_THEME` | Theme selection (default `dark`) |
 
 ### 🚀 Launching on Vercel: Step-by-Step
 
@@ -99,9 +91,9 @@ To successfully deploy and run, you must populate the following environment vari
 4. **Deploy**: Hit "Deploy". Vercel will automatically run the build steps (`npm run build`).
 5. **Database Push**: Run `npx prisma db push` to synchronize database models before launching.
 6. **Integrations Setup**:
-   - Establish a **Google Cloud OAuth app**, enabling the callback URL: `https://amazon-product-studio.vercel.app/api/auth/callback/google`
-   - Setup a **Stripe Webhook**, pointing to `https://amazon-product-studio.vercel.app/api/stripe/webhook` and selecting the `checkout.session.completed` event.
-   - Register a **MuAPI Webhook** pointing to `https://amazon-product-studio.vercel.app/api/webhooks/ai` to receive async generation results.
+   - Establish a **Google Cloud OAuth app**, enabling the callback URL: `https://your-app.vercel.app/api/auth/callback/google`
+   - Setup a **Stripe Webhook**, pointing to `https://your-app.vercel.app/api/stripe/webhook` and selecting the `checkout.session.completed` event.
+   - Register a **MuAPI Webhook** pointing to `https://your-app.vercel.app/api/webhooks/ai` to receive async generation results.
 
 ---
 
@@ -146,12 +138,12 @@ The console should now be active on `http://localhost:3000`.
 
 ## ⚠️ Database Safety Warning (Shared Pool)
 
-The workspace database is shared with other applications. Running `npx prisma db push` on a clean, empty schema will drop tables belonging to other applications. Always follow the **Pull-Declare-Push-Cleanup** sequence detailed in the [SaaS Application Blueprint Guide](../blueprint.md):
+The workspace database is shared with other applications. Running `npx prisma db push` on a clean, empty schema will drop tables belonging to other applications. Always follow the **Pull-Declare-Push-Cleanup** sequence:
 
 1. Run `npx prisma db pull` to fetch all database tables.
-2. Declare your `Creation` table and update the relations on the `User` model.
+2. Declare your `AmazonProductCreation` table and update the relations on the `User` model.
 3. Run `npx prisma db push` to add your changes safely.
-4. Clean up `schema.prisma` to keep only NextAuth models, `Creation`, and the updated `User` relations.
+4. Clean up `schema.prisma` to keep only NextAuth models, `AmazonProductCreation`, and the updated `User` relations.
 5. Run `npx prisma generate` to rebuild the type-safe client.
 
 ---
@@ -161,34 +153,47 @@ The workspace database is shared with other applications. Running `npx prisma db
 ```
 amazon-product-studio/
 ├── prisma/
-│   └── schema.prisma           # Postgres schema (User, Account, Session, Creation)
+│   └── schema.prisma                  # PostgreSQL models (User, Account, Session, AmazonProductCreation)
 ├── src/
-│   ├── app/                    # Next.js App Router
-│   │   ├── page.js             # Main Studio Workspace (Uploads, Aspect Ratio, Prompt)
-│   │   ├── gallery/            # Dedicated gallery grid with details modal & polling
-│   │   ├── pricing/            # 4-Plan credit pricing grid ($1 = 200 credits)
+│   ├── app/                           # Next.js App Router
+│   │   ├── page.js                    # Main Studio Workspace (Uploads, Aspect Ratio, Presets, Prompts)
+│   │   ├── pricing/                   # Pricing page with 4 credit billing plans
+│   │   │   └── page.js
+│   │   ├── globals.css                # Global CSS configurations (Tailwind 4)
+│   │   ├── layout.js                  # App router top-level layout
 │   │   └── api/
-│   │       ├── auth/           # NextAuth handler
-│   │       ├── upload/         # MuAPI file upload proxy
-│   │       ├── creations/      # GET / POST creations and sync logic (per user)
-│   │       ├── download/       # Image downloading bypass endpoint
-│   │       ├── webhooks/
-│   │       │   └── ai/         # MuAPI webhook endpoint
-│   │       └── stripe/         # Stripe checkout creation + checkout webhook
+│   │       ├── auth/                  # NextAuth credentials handling
+│   │       │   └── [...nextauth]/
+│   │       │       └── route.js
+│   │       ├── creations/             # GET (fetch history & polling) and POST (submit new scene tasks)
+│   │       │   └── route.js
+│   │       ├── download/              # GET proxy to force-download high-res generated images
+│   │       │   └── route.js
+│   │       ├── upload/                # Proxy to forward images securely to MuAPI
+│   │       │   └── route.js
+│   │       ├── stripe/                # Stripe billing routes
+│   │       │   ├── checkout/
+│   │       │   │   └── route.js       # Create checkout session
+│   │       │   └── webhook/
+│   │       │       └── route.js       # Stripe event fulfillment callback
+│   │       └── webhooks/              # MuAPI webhooks
+│   │           └── ai/
+│   │               └── route.js       # Async generation completion callback
 │   ├── components/
-│   │   ├── Providers.js        # NextAuth SessionProvider wrapper
+│   │   ├── Providers.jsx              # SessionProvider wrapper
 │   │   └── saas/
-│   │       ├── Navbar.jsx      # Sticky header with Vercel Deploy button & credit balance
-│   │       └── CreditBadge.jsx # Credit badge display
+│   │       ├── AuthButtons.jsx        # Google Login & Logout controls
+│   │       ├── CreditBadge.jsx        # Navbar credit status coin indicator
+│   │       └── Navbar.jsx             # Sticky layout navbar header
 │   └── lib/
-│       ├── auth.js             # NextAuth config with Prisma adapter
-│       ├── config.js           # Central config mapping Google, Stripe, MuAPI keys
-│       ├── prisma.js           # Cached Prisma client singleton
-│       ├── stripe.js           # Stripe instance initializer
+│       ├── auth.js                    # NextAuth adapter configuration
+│       ├── config.js                  # Central environment configurations
+│       ├── prisma.js                  # Cached Prisma Client instance
+│       ├── stripe.js                  # Stripe client initialization
 │       └── services/
-│           ├── user.js         # Credit management service (18 credits per run)
-│           └── billing.js      # Stripe checkout and payment webhook parser
-└── next.config.mjs             # Next.js configuration
+│           ├── ai.js                  # Submit task, check status, and process callbacks
+│           ├── billing.js             # Checkout creation and webhook processing
+│           └── user.js                # Add, deduct, and refund credit balances
 ```
 
 ---
@@ -199,4 +204,4 @@ MIT Licensed.
 
 ---
 
-_Amazon Product Studio: A premium, high-contrast, fully responsive product scene creator built for modern e-commerce sellers and marketing teams._
+_Amazon Product Studio: A premium, high-contrast, fully responsive AI product photography studio built for e-commerce store owners, digital brands, and marketing teams._

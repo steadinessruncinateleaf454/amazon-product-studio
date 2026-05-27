@@ -1,6 +1,9 @@
-# 📦 Amazon Product Studio — Premium AI Product Photo & Ad Creative Generator SaaS
+# 📦 Amazon Product Studio — Open-Source AI Product Photography & Ad Creative SaaS (Free Flair AI / Booth AI Alternative)
 
-> **A beautifully designed, high-contrast AI Product Photography Studio.** Built with Next.js (App Router), this application is a self-contained SaaS boilerplate for generating photorealistic product ad scenes in seconds. Upload up to 14 product reference photos, select a premium template preset or input a custom prompt, choose your aspect ratio, and place your product into beautiful, studio-grade commercial scenes.
+> **Generate studio-quality product photos and ad creatives from reference images in seconds.** A production-ready, self-hostable Next.js SaaS boilerplate with multi-image upload (up to 14 references), preset templates, aspect ratio control, webhook-backed async delivery, and built-in Stripe billing. A free open-source alternative to Flair AI, Booth AI, Photoroom, and Pebblely — powered by the MuAPI AI engine.
+
+**Tech stack:** Next.js 14 (App Router) · Prisma · PostgreSQL · NextAuth (Google OAuth) · Stripe · Tailwind CSS · MuAPI · Webhook-backed async delivery
+**Use cases:** Amazon sellers · E-commerce product photography · DTC brand marketing · Shopify store owners · Ad creative teams · Product listing optimization · Dropshippers · Social media product ads
 
 ## 🌐 Project Details
 

